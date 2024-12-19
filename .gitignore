@@ -1,0 +1,39 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/veggies-frontend/node_modules
+/veggies-backend/node_modules
+/veggies-backend/dist
+/veggies-backend/.env
+/veggies-frontend/.pnp
+/veggies-frontend/.pnp.js
+/veggies-frontend/.yarn/install-state.gz
+
+# testing
+/veggies-frontend/coverage
+
+# next.js
+/veggies-frontend/.next/
+/veggies-frontend/out/
+
+# production
+/veggies-frontend/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+/veggies-frontend/.env*.local
+
+# vercel
+# /veggies-frontend/.vercel
+
+# typescript
+*.tsbuildinfo
+/veggies-frontend/next-env.d.ts
