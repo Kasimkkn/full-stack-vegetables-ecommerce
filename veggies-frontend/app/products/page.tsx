@@ -190,6 +190,7 @@ const ProductsList = () => {
                                         price={product.price}
                                         title={product.name}
                                         productId={product._id}
+                                        stock={product.stock}
                                     />
                                 ))}
                             </div>

@@ -14,9 +14,12 @@ export const addToCart = TryCatch(async (req: Request, res, next) => {
     if (!product)
         return next(new ErrorHandler("Product not found", 404));
 
-    if (product.stock < quantity)
-        return next(new ErrorHandler("Product out of stock", 400));
-
+    if (product.stock === 0) {
+        return res.status(200).json({
+            success: false,
+            message: "Product out of stock",
+        });
+    }
     const cart = await Cart.findOne({ userId: userId });
 
     if (!cart) {
@@ -79,8 +82,11 @@ export const updateCartQuantity = TryCatch(async (req: Request, res, next) => {
         return next(new ErrorHandler("Product not found", 404));
 
     if (product.stock < quantity)
-        return next(new ErrorHandler("Product out of stock", 400));
-
+        return res.status(200).json({
+            success: false,
+            message: "Product out of stock",
+            cart: cart
+        });
     const existingItemIndex = cart.item.findIndex(
         (item) => item.productId.toString() === productId
     );

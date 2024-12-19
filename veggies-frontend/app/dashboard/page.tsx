@@ -112,7 +112,7 @@ const AdminDashboard = () => {
         setIsModalOpen(true);
     };
 
-    const handleDeleteProduct = (id: number) => {
+    const handleDeleteProduct = (id: string) => {
         setConfirmModalMessage("Are you sure you want to delete this product?");
         setConfirmModalAction(() => async () => {
             setActionLoading(true);

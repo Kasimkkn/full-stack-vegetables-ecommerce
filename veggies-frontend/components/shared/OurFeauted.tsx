@@ -60,7 +60,9 @@ const OurFeatured = ({ products, loading }: { products: Product[], loading: bool
                                     price={product.price}
                                     title={product.name}
                                     key={index}
-                                    addToCart={() => addItem(product)}
+                                    productId={product._id}
+                                    stock={product.stock}
+                                    isWishlist={product.isWishlisted}
                                 />
                             ))}
                         </>

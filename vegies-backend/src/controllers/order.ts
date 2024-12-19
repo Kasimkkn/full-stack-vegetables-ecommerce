@@ -6,6 +6,7 @@ import { NewOrderRequestBody } from "../types/types.js";
 import { invalidateCache, reduceStock } from "../utils/features.js";
 import sendEmail from "../utils/sendEmail.js";
 import ErrorHandler from "../utils/utility-class.js";
+import { User } from "../models/user.js";
 
 export const myOrders = TryCatch(async (req, res, next) => {
   const { id: user } = req.query;
@@ -88,8 +89,13 @@ export const newOrder = TryCatch(
     }
 
 
+    const userData = await User.findById(user._id);
 
-    console.log('hwello')
+    if (!userData) return next(new ErrorHandler("User Not Found", 404));
+
+    userData.address = shippingInfo;
+    await userData.save();
+
     const order = await Order.create({
       shippingInfo,
       orderItems,
@@ -139,7 +145,6 @@ export const newOrder = TryCatch(
       await sendEmail({
         email: user.email,
         subject: `Order Confirmation`,
-
         html: message,
       });
     }

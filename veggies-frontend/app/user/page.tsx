@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { Users } from '@/types/Types'
 
 const ProfilePage = () => {
@@ -18,6 +19,12 @@ const ProfilePage = () => {
             setLoading(false)
         }
     }, [router])
+
+    const handleLogout = () => {
+        localStorage.removeItem('veggies:token')
+        localStorage.removeItem('veggies:user')
+        router.push('/login')
+    }
 
     return (
         <div className="container mx-auto md:pt-20 md:px-40">
@@ -110,6 +117,20 @@ const ProfilePage = () => {
                                 readOnly
                             />
                         </div>
+                    </div>
+                    <div className="flex justify-start gap-4 mt-6 items-center">
+                        <Link href="/my-order">
+                            <span className="p-2 w-full border-none rounded-md bg-gray-200">My Orders</span>
+                        </Link>
+                        <Link href="/wishlist">
+                            <span className="p-2 w-full border-none rounded-md bg-gray-200">Wishlist</span>
+                        </Link>
+                        <button
+                            onClick={handleLogout}
+                            className="text-red-500 p-2 w-max border-none rounded-md bg-gray-200"
+                        >
+                            Logout
+                        </button>
                     </div>
                 </div>
             )}

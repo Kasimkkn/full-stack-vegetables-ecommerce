@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { HomeIcon, ShoppingCartIcon, LayoutGridIcon, UserIcon, LayoutDashboard, Heart } from "lucide-react";
+import { HomeIcon, ShoppingCartIcon, LayoutGridIcon, UserIcon, LayoutDashboard, Heart, LogIn } from "lucide-react";
 import Link from "next/link";
 import { NavLink } from "@/types/Types";
 
@@ -97,9 +97,14 @@ const Header: React.FC = () => {
                         <Link href="/cart">
                             <ShoppingCartIcon className="w-6 h-6 text-mainText" />
                         </Link>
-                        <Link href={"/user"}>
-                            <UserIcon className="w-6 h-6 text-mainText" />
-                        </Link>
+                        {userData.token ? (
+                            <Link href={"/user"}>
+                                <UserIcon className="w-6 h-6 text-mainText" />
+                            </Link>
+                        ) : (
+                            <Link href="/login">
+                                <LogIn className="w-6 h-6 text-mainText" />
+                            </Link>)}
                     </div>
                 </div>
             </nav>

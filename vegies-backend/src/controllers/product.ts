@@ -93,7 +93,6 @@ export const newProduct = TryCatch(
       });
 
       const newproduct = await Product.create({
-
         name,
         price,
         description,

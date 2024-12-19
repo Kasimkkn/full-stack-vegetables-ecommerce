@@ -16,14 +16,38 @@ export const addToWishlist = TryCatch(async (req: Request, res, next) => {
     if (!product)
         return next(new ErrorHandler("Product not found", 404));
 
+    if (product.isWishlisted) {
+        product.isWishlisted = false;
+        await product.save();
+
+        const updatedWishlist = await Wishlist.findOne({ userId });
+
+        if (updatedWishlist) {
+            const existingItemIndex = updatedWishlist.item.findIndex(
+                (item) => item.productId.toString() === productId
+            );
+
+            if (existingItemIndex !== -1) {
+                updatedWishlist.item.splice(existingItemIndex, 1);
+
+                await updatedWishlist.save();
+            }
+            return res.status(201).json({
+                success: true,
+                message: "Product removed from wishlist"
+            });
+        }
+    }
     const wishlist = await Wishlist.findOne({ userId });
 
     if (!wishlist) {
         const newWishlist = await Wishlist.create({
-            item: [{ productId, name: product.name, photo: product.photo, price: product.price }],
+            item: [{ productId, name: product.name, photo: product.photo, price: product.price, stock: product.stock }],
             userId,
         });
 
+        product.isWishlisted = true;
+        await product.save();
         return res.status(201).json({
             success: true,
             message: "Product added to wishlist",
@@ -46,9 +70,13 @@ export const addToWishlist = TryCatch(async (req: Request, res, next) => {
             name: product.name,
             photo: product.photo,
             price: product.price,
+            stock: product.stock
         });
 
         await wishlist.save();
+
+        product.isWishlisted = true;
+        await product.save();
 
         return res.status(201).json({
             success: true,
@@ -65,6 +93,11 @@ export const removeFromWishlist = TryCatch(async (req: Request, res, next) => {
     if (!productId)
         return next(new ErrorHandler("Please provide productId", 400));
 
+    const product = await Product.findById(productId);
+
+    if (!product)
+        return next(new ErrorHandler("Product not found", 404));
+
     const wishlist = await Wishlist.findOne({ userId });
 
     if (!wishlist)
@@ -78,7 +111,8 @@ export const removeFromWishlist = TryCatch(async (req: Request, res, next) => {
         return next(new ErrorHandler("Product not found in wishlist", 404));
 
     wishlist.item.splice(existingItemIndex, 1); // Remove the item from the array
-
+    product.isWishlisted = false;
+    await product.save();
     await wishlist.save();
 
     return res.status(200).json({

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { loginUser } from "@/service/user.service";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -18,7 +19,7 @@ const LoginPage = () => {
     const onLogin = async () => {
         try {
             setLoading(true);
-            const response = await axios.post("http://localhost:4000/api/v1/user/login", user);
+            const response = await loginUser(user);
             console.log(response);
             if (response.data.success) {
                 console.log("Login success", response.data);
@@ -39,6 +40,13 @@ const LoginPage = () => {
     useEffect(() => {
         setButtonDisabled(!(user.email.length > 0 && user.password.length > 0));
     }, [user]);
+
+    useEffect(() => {
+        const userData = localStorage.getItem("veggies:user");
+        if (userData) {
+            router.push("/home");
+        }
+    }, []);
 
     return (
         <section className="grid md:grid-cols-12 grid-cols-1 h-screen bg-mainBg text-mainText">
@@ -131,9 +139,10 @@ const LoginPage = () => {
                         </button>
                     </div>
 
-                    <div>
-                        <Link className="text-mainText/50 text-xs" href="/signup">
-                            Don't have an account?
+                    <div className="flex items-center text-mainText/50 text-xs gap-1">
+                        <p>Don't have an account?</p>
+                        <Link className="text-mainText/90 text-xs" href="/signup">
+                            Signup
                         </Link>
                     </div>
 

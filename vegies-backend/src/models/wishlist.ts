@@ -5,6 +5,7 @@ interface IWishlist extends Document {
         name: string;
         photo: string;
         price: number;
+        stock: number;
         productId: mongoose.Types.ObjectId;
     }]
     userId: mongoose.Types.ObjectId
@@ -22,6 +23,10 @@ const schema = new mongoose.Schema({
             required: true,
         },
         price: {
+            type: Number,
+            required: true,
+        },
+        stock: {
             type: Number,
             required: true,
         },

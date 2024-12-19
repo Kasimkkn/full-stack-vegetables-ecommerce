@@ -19,7 +19,6 @@ export const newUser = TryCatch(
       return next(new ErrorHandler("Email already exists", 400));
     }
 
-    console.log('req.body', req.body);
     if (!name || !email || !password) {
       return next(new ErrorHandler("Please provide all required fields", 400));
     }

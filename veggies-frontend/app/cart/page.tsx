@@ -26,9 +26,13 @@ const CartPage = () => {
     const updateQuantity = async (id: string, quantity: number) => {
         try {
             const reponse = await updateCartQuantity({ productId: id, quantity, userId })
+            console.log('response', reponse)
             if (reponse.data.success) {
                 toast.success(reponse.data.message)
                 getAllUserCartItem()
+            } else {
+                console.log('error in update quantity', reponse.data.message)
+                toast.error(reponse.data.message)
             }
         } catch (error) {
             console.log('error in update quantity', error)
@@ -70,6 +74,7 @@ const CartPage = () => {
                                             <div className="flex items-end order-3">
                                                 <div className="flex items-baseline">
                                                     <button
+                                                        disabled={product.quantity <= 1}
                                                         onClick={() => updateQuantity(product.productId, product.quantity - 1)}
                                                         type="button" id="decrement-button" data-input-counter-decrement="counter-input" className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 ">
                                                         <svg className="h-2.5 w-2.5 text-gray-900 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">

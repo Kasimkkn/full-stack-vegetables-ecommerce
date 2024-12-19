@@ -61,7 +61,8 @@ const LatestProdcuts = ({ products, loading }: { products: Product[], loading: b
                                         price={product.price}
                                         title={product.name}
                                         key={index}
-                                        addToCart={() => addItem(product)}
+                                        stock={product.stock}
+                                        productId={product._id}
                                     />
                                 ))
                             }

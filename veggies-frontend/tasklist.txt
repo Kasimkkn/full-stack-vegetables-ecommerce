@@ -1,0 +1,16 @@
+2. ✅ when user clicks on profile page and if logged in than process or else move to login page
+3. ✅ if user visits signup or login even he is logged in than redirect to home page 
+4. ✅add the authentication wrapper as a AuthContext and check the user is logged in or not
+5. ✅addd the env variable at fronted side too
+6. add the JWT token complete feature to so that no need to passs the UserId each time
+7. ✅ on checkout or new order minus the stock of that producs
+8. nodemailer email credential integrartion
+10.✅ remove heart icon in wishlist page
+11.✅ remove the wishlisted products when clicked on heart again
+13.✅ add a stock column in the admin panel table
+14.✅ out stock and disabled button on the productscard with the stock === 0
+15. ✅ add the delviery detials in the user table
+16.✅ $ change to ruppess
+17. check and add all the validation for the input feilds
+18. add pagination to the veggies page
+19. ✅add option and button on the profile page like logout and my order , my wishlits

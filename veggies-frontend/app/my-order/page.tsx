@@ -80,7 +80,7 @@ const page = () => {
                                             Price:
                                         </dt>
                                         <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                                            ${order.total}
+                                            ₹{order.total}
                                         </dd>
                                     </dl>
 
@@ -145,7 +145,7 @@ const page = () => {
                                                                         {item.name}
                                                                     </span>
                                                                     <span className="text-sm text-gray-500 dark:text-gray-400">
-                                                                        ${item.price} x {item.quantity}
+                                                                        ₹{item.price} x {item.quantity}
                                                                     </span>
                                                                 </div>
                                                             </div>

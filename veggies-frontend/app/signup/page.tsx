@@ -1,8 +1,8 @@
 "use client";
+import { createUser } from "@/service/user.service";
 import Link from "next/link";
-import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
 
 export default function SignupPage() {
@@ -20,7 +20,7 @@ export default function SignupPage() {
     const onSignUp = async () => {
         try {
             setLoading(true)
-            const res = await axios.post("http://localhost:4000/api/v1/user/new", user);
+            const res = await createUser(user);
             if (res.data.success) {
                 console.log("Login success", res.data);
                 localStorage.setItem("veggies:token", res.data.token);
@@ -45,6 +45,12 @@ export default function SignupPage() {
         }
     }, [user]);
 
+    useEffect(() => {
+        const userData = localStorage.getItem("veggies:user");
+        if (userData) {
+            router.push("/home");
+        }
+    }, []);
 
     return (
         <section className="grid md:grid-cols-12 grid-cols-1 h-screen bg-mainBg text-mainText">
@@ -54,10 +60,10 @@ export default function SignupPage() {
                     src="https://media.istockphoto.com/id/1179823124/photo/fresh-vegetables-and-fruits-at-local-market-in-sanya-hainan-china.jpg?s=612x612&w=0&k=20&c=tYTPjEatXY49-Rs5oXhpWFnb8qwmViXarDmn78TFd2k=" alt="" />
                 <div className="rounded-tr-xl rounded-br-xl absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
             </div>
-            <div className="md:col-span-6 flex flex-col gap-4 w-full h-full justify-center items-center 
+            <div className="md:col-span-6 max-md:p-4 flex flex-col gap-4 w-full h-full justify-center items-center 
  p-12 rounded-md">
 
-                <div className="flex flex-col h-80 w-80 bg-gray-500 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 rounded-md p-4 justify-center gap-6">
+                <div className="flex flex-col h-96 w-96 bg-gray-500 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 rounded-md p-4 justify-center gap-6">
 
                     <h1 className="text-2xl font-extralight ">{loading ? "loading..." : "Sign Up"}</h1>
                     <div className="relative">

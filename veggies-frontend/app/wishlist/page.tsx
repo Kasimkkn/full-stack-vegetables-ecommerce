@@ -49,6 +49,8 @@ const page = () => {
                                     price={product.price}
                                     title={product.name}
                                     productId={product.productId}
+                                    isHeartIcon={false}
+                                    stock={product.stock}
                                 />
                                 <button onClick={() => removeItem(product.productId)} className='absolute -top-2 -left-2 p-2 rounded-full bg-black'>
                                     <Trash2 className='text-red-500' />

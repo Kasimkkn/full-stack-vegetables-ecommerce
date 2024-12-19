@@ -3,7 +3,7 @@ import { Product } from "@/types/Types";
 interface ProductTableProps {
     products: Product[];
     onEdit: (product: Product) => void;
-    onDelete: (id: number) => void;
+    onDelete: (id: string) => void;
     onAdd: () => void;
 }
 
@@ -22,6 +22,7 @@ const ProductTable = ({ products, onEdit, onDelete, onAdd }: ProductTableProps) 
                         <th className="px-4 py-2">#</th>
                         <th className="px-4 py-2">Name</th>
                         <th className="px-4 py-2">Price</th>
+                        <th className="px-4 py-2">Stock</th>
                         <th className="px-4 py-2">Actions</th>
                     </tr>
                 </thead>
@@ -35,6 +36,7 @@ const ProductTable = ({ products, onEdit, onDelete, onAdd }: ProductTableProps) 
                             </td>
                             <td className="px-4 py-2">{product.name}</td>
                             <td className="px-4 py-2">₹{product.price}</td>
+                            <td className="px-4 py-2">₹{product.stock}</td>
                             <td className="px-4 py-2">
                                 <button onClick={() => onEdit(product)} className="bg-mainBg text-white px-2 py-1 rounded mr-2">
                                     Update

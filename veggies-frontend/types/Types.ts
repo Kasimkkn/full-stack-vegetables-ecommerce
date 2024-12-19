@@ -15,6 +15,7 @@ export type Product = {
     quantity: number;
     description?: string
     isFeatured?: boolean
+    isWishlisted?: boolean
 };
 
 
@@ -80,6 +81,7 @@ export type WishlistItems = {
     name: string,
     photo: string,
     price: number,
+    stock: number,
     productId: string,
     _id: string
 }

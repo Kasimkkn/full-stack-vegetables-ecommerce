@@ -28,6 +28,22 @@ const page = () => {
             if (res.data.success) {
                 setCart(res.data.cart.item)
             }
+            const userData = JSON.parse(localStorage.getItem("veggies:user") || "{}");
+
+            if (userData) {
+                setFormData({
+                    name: userData.data.name,
+                    email: userData.data.email,
+                    phone: userData.data.phone,
+                    country: userData.data.address.country,
+                    city: userData.data.address.city,
+                    state: userData.data.address.state,
+                    address: userData.data.address.address,
+                    pincode: userData.data.address.pincode,
+                });
+            }
+
+
         } catch (error) {
             console.log('error in get cart', error)
         }
@@ -133,6 +149,7 @@ const page = () => {
                                         value={formData.name}
                                         name="name"
                                         onChange={handleInputChange}
+                                        readOnly
                                         className="block w-full rounded-lg border border-black/10 bg-gray-50 p-2.5 text-sm text-mainBg focus:outline-none outline-none border-none focus:ring-1 focus:ring-black/20" placeholder="kasim Kadiwala" required />
                                 </div>
 
@@ -142,6 +159,7 @@ const page = () => {
                                         name='email'
                                         value={formData.email}
                                         onChange={handleInputChange}
+                                        readOnly
                                         className="block w-full rounded-lg border border-black/10 bg-gray-50 p-2.5 text-sm text-mainBg focus:outline-none outline-none border-none focus:ring-1 focus:ring-black/20" placeholder="name@flowbite.com" required />
                                 </div>
                                 <div>
