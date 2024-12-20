@@ -29,8 +29,8 @@ export const deleteProduct = async (id: string, adminId: string) => {
 };
 
 // Fetch all products with filters
-export const fetchAllProducts = async (filters?: Record<string, any>) => {
-    return axios.get(`${BASE_URL}/product/all`, { params: filters });
+export const fetchAllProducts = async (page: number) => {
+    return axios.get(`${BASE_URL}/product/all`, { params: { page } });
 };
 
 // Fetch the latest 10 products

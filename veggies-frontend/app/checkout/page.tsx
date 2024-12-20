@@ -169,6 +169,8 @@ const page = () => {
                                             <input type="text" id="phone-input"
                                                 name='phone'
                                                 value={formData.phone}
+                                                minLength={10}
+                                                maxLength={10}
                                                 onChange={handleInputChange}
                                                 className="block w-full rounded-lg border border-black/10 bg-gray-50 p-2.5 text-sm text-mainBg focus:outline-none outline-none border-none focus:ring-1 focus:ring-black/20" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
                                         </div>
@@ -217,6 +219,8 @@ const page = () => {
                                     <label htmlFor="pincode" className="mb-2 block text-sm font-medium text-mainBg "> Pin code </label>
                                     <input type="text" id="pincode"
                                         name='pincode'
+                                        minLength={6}
+                                        maxLength={6}
                                         value={formData.pincode}
                                         onChange={handleInputChange}
                                         className="block w-full rounded-lg border border-black/10 bg-gray-50 p-2.5 text-sm text-mainBg focus:outline-none outline-none border-none focus:ring-1 focus:ring-black/20" placeholder="94105" required />

@@ -84,7 +84,7 @@ const AdminProducts = () => {
         setIsModalOpen(true);
     };
 
-    const handleDeleteProduct = (id: number) => {
+    const handleDeleteProduct = (id: string) => {
         setConfirmModalMessage("Are you sure you want to delete this product?");
         setConfirmModalAction(() => async () => {
             setActionLoading(true);
@@ -147,7 +147,8 @@ const AdminProducts = () => {
                             <input
                                 type="text"
                                 name="name"
-                                defaultValue={productToEdit?.name || ""}
+                                defaultValue={productToEdit?.name}
+                                placeholder="Product Name"
                                 className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                                 required
                             />
@@ -157,7 +158,8 @@ const AdminProducts = () => {
                             <input
                                 type="number"
                                 name="price"
-                                defaultValue={productToEdit?.price || 0}
+                                placeholder="Product Price"
+                                defaultValue={productToEdit?.price}
                                 className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                                 required
                             />
@@ -167,7 +169,8 @@ const AdminProducts = () => {
                             <input
                                 type="text"
                                 name="category"
-                                defaultValue={productToEdit?.category || ""}
+                                placeholder="Product Category"
+                                defaultValue={productToEdit?.category}
                                 className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                             />
                         </div>
@@ -176,7 +179,8 @@ const AdminProducts = () => {
                             <input
                                 type="number"
                                 name="stock"
-                                defaultValue={productToEdit?.stock || 0}
+                                placeholder="Product Stock"
+                                defaultValue={productToEdit?.stock}
                                 className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                             />
                         </div>
@@ -185,7 +189,8 @@ const AdminProducts = () => {
                         <label className="block text-gray-700 mb-1">Description</label>
                         <textarea
                             name="description"
-                            defaultValue={productToEdit?.description || ""}
+                            defaultValue={productToEdit?.description}
+                            placeholder="Product Description (optional)"
                             className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                         ></textarea>
                     </div>

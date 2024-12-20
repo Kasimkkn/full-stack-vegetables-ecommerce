@@ -255,7 +255,8 @@ const AdminDashboard = () => {
                             <input
                                 type="text"
                                 name="name"
-                                defaultValue={productToEdit?.name || ""}
+                                placeholder="Product Name"
+                                defaultValue={productToEdit?.name}
                                 className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                                 required
                             />
@@ -265,7 +266,8 @@ const AdminDashboard = () => {
                             <input
                                 type="number"
                                 name="price"
-                                defaultValue={productToEdit?.price || 0}
+                                defaultValue={productToEdit?.price}
+                                placeholder="00"
                                 className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                                 required
                             />
@@ -275,7 +277,8 @@ const AdminDashboard = () => {
                             <input
                                 type="text"
                                 name="category"
-                                defaultValue={productToEdit?.category || ""}
+                                placeholder="Product Category"
+                                defaultValue={productToEdit?.category}
                                 className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                             />
                         </div>
@@ -284,7 +287,8 @@ const AdminDashboard = () => {
                             <input
                                 type="number"
                                 name="stock"
-                                defaultValue={productToEdit?.stock || 0}
+                                placeholder="Product Stock"
+                                defaultValue={productToEdit?.stock}
                                 className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                             />
                         </div>
@@ -293,7 +297,8 @@ const AdminDashboard = () => {
                         <label className="block text-gray-700 mb-1">Description</label>
                         <textarea
                             name="description"
-                            defaultValue={productToEdit?.description || ""}
+                            defaultValue={productToEdit?.description}
+                            placeholder="Product Description ..."
                             className="block w-full rounded-lg border border-black bg-mainBg/10 p-2.5 text-sm text-mainBg focus:outline-none border-none focus:ring-1 focus:ring-black/20"
                         ></textarea>
                     </div>

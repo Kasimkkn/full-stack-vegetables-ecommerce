@@ -15,8 +15,7 @@ type Filters = {
 type SortOption = "Latest" | "PriceLowToHigh" | "Alphabetical";
 
 const ProductsList = () => {
-    const [product, setProduct] = useState<Product[] | null>(null);
-    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [filters, setFilters] = useState<Filters>({
         categories: {
             vegetables: false,
@@ -26,43 +25,24 @@ const ProductsList = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [sortBy, setSortBy] = useState<SortOption>("Latest");
 
-    const [cart, setCart] = useState<Product[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [totalPages, setTotalPages] = useState<number>(0);
 
-    // Load cart from localStorage
-    useEffect(() => {
-        const storedCart = localStorage.getItem("veggies:cart");
-        if (storedCart) {
-            setCart(JSON.parse(storedCart));
+    // Fetch Products for the Current Page
+    const fetchProducts = async (page: number) => {
+        try {
+            const response = await fetchAllProducts(page);
+            console.log('response', response)
+            const { products, totalPage } = response.data;
+            setProducts(products);
+            setTotalPages(totalPage);
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            toast.error("Failed to load products.");
         }
-    }, []);
-
-    // Save cart to localStorage
-    useEffect(() => {
-        if (cart.length > 0) {
-            localStorage.setItem("veggies:cart", JSON.stringify(cart));
-        }
-    }, [cart]);
-
-    const addItem = (item: Product) => {
-        if (item.stock <= 0) return toast.error("Item out of stock");
-        setCart((prevCart) => {
-            const existingItemIndex = prevCart.findIndex((cartItem) => cartItem._id === item._id);
-
-            if (existingItemIndex !== -1) {
-                const updatedCart = [...prevCart];
-                updatedCart[existingItemIndex] = {
-                    ...prevCart[existingItemIndex],
-                    quantity: prevCart[existingItemIndex].quantity + 1,
-                };
-                return updatedCart;
-            }
-
-            return [...prevCart, { ...item, quantity: 1 }];
-        });
-
-        toast.success("Item added to cart");
     };
 
+    // Handle Filter Changes
     const handleFilterChange = (category: string) => {
         setFilters((prev) => ({
             ...prev,
@@ -81,53 +61,11 @@ const ProductsList = () => {
         setSearchTerm(e.target.value);
     };
 
-    // Fetch Products from API
+    // Fetch data when the page changes
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetchAllProducts();
-                console.log("response", response);
-                setProduct(response.data.products);
-                setFilteredProducts(response.data.products); // Initialize filteredProducts
-            } catch (error) {
-                console.error("Error fetching products:", error);
-            }
-        };
-
-        fetchProducts();
-    }, []);
-
-    // Update Filtered Products State
-    useEffect(() => {
-        if (!product) return;
-
-        let result = [...product];
-
-        // Categories Filter
-        const activeCategories = Object.entries(filters.categories)
-            .filter(([_, isActive]) => isActive)
-            .map(([category]) => category);
-
-        if (activeCategories.length > 0) {
-            result = result.filter((prod) => activeCategories.includes(prod.category));
-        }
-
-        // Search Filter
-        if (searchTerm) {
-            result = result.filter((prod) =>
-                prod.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-        }
-
-        // Sorting
-        if (sortBy === "PriceLowToHigh") {
-            result.sort((a, b) => a.price - b.price);
-        } else if (sortBy === "Alphabetical") {
-            result.sort((a, b) => a.name.localeCompare(b.name));
-        }
-
-        setFilteredProducts(result);
-    }, [product, filters.categories, searchTerm, sortBy]);
+        console.log('currentPage', currentPage)
+        fetchProducts(currentPage);
+    }, [currentPage]);
 
     return (
         <section className="max-md:pb-20 md:mt-16 bg-gray-50 overflow-hidden">
@@ -170,7 +108,7 @@ const ProductsList = () => {
                 </div>
 
                 {/* Product List */}
-                <div className="">
+                <div className="w-full">
                     <div className="mb-2">
                         <input
                             type="text"
@@ -181,23 +119,48 @@ const ProductsList = () => {
                         />
                     </div>
                     <div className="md:pb-20 md:max-h-[80vh] md:overflow-x-scroll">
-                        {filteredProducts.length > 0 ? (
-                            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2">
-                                {filteredProducts.map((product: Product, index: number) => (
-                                    <ProductCard
-                                        key={index}
-                                        image={product.photo}
-                                        price={product.price}
-                                        title={product.name}
-                                        productId={product._id}
-                                        stock={product.stock}
-                                    />
-                                ))}
-                            </div>
+                        {products.length > 0 ? (
+                            <>
+                                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2">
+                                    {products.map((product: Product) => (
+                                        <ProductCard
+                                            key={product._id}
+                                            image={product.photo}
+                                            price={product.price}
+                                            title={product.name}
+                                            productId={product._id}
+                                            stock={product.stock}
+                                        />
+                                    ))}
+                                </div>
+                                <div className="flex justify-center gap-2 mt-10">
+                                    <button
+                                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                                        className="px-4 py-2 bg-gray-200 rounded"
+                                        disabled={currentPage === 1}
+                                    >
+                                        Previous
+                                    </button>
+                                    {Array.from({ length: totalPages }, (_, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => setCurrentPage(i + 1)}
+                                            className={`px-4 py-2 ${currentPage === i + 1 ? "bg-mainBg text-white" : "bg-gray-200"} rounded`}
+                                        >
+                                            {i + 1}
+                                        </button>
+                                    ))}
+                                    <button
+                                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                                        className="px-4 py-2 bg-gray-200 rounded"
+                                        disabled={currentPage === totalPages}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            </>
                         ) : (
-                            <p className="text-gray-600 text-center py-8">
-                                No products
-                            </p>
+                            <p className="text-gray-600 text-center py-8">No products</p>
                         )}
                     </div>
                 </div>

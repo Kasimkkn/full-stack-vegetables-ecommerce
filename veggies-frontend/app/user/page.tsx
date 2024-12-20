@@ -40,7 +40,7 @@ const ProfilePage = () => {
                             <label className="text-sm text-gray-500">Full Name</label>
                             <input
                                 type="text"
-                                value={user?.name || ''}
+                                value={user?.name}
                                 className="mt-1 p-2 w-full border-none rounded-md bg-gray-200"
                                 placeholder="Full Name"
                                 readOnly
@@ -50,7 +50,7 @@ const ProfilePage = () => {
                             <label className="text-sm text-gray-500">Email</label>
                             <input
                                 type="email"
-                                value={user?.email || ''}
+                                value={user?.email}
                                 className="mt-1 p-2 w-full border-none rounded-md bg-gray-200"
                                 placeholder="Email Address"
                                 readOnly
@@ -60,7 +60,7 @@ const ProfilePage = () => {
                             <label className="text-sm text-gray-500">Phone Number</label>
                             <input
                                 type="text"
-                                value={user?.phoneNumber || ''}
+                                value={user?.phoneNumber}
                                 className="mt-1 p-2 w-full border-none rounded-md bg-gray-200"
                                 placeholder="Phone Number"
                                 readOnly
@@ -71,7 +71,7 @@ const ProfilePage = () => {
                             <label className="text-sm text-gray-500">Address</label>
                             <input
                                 type="text"
-                                value={user?.address?.address || ''}
+                                value={user?.address?.address}
                                 className="mt-1 p-2 w-full border-none rounded-md bg-gray-200"
                                 placeholder="Address"
                                 readOnly
@@ -81,7 +81,7 @@ const ProfilePage = () => {
                             <label className="text-sm text-gray-500">City</label>
                             <input
                                 type="text"
-                                value={user?.address?.city || ''}
+                                value={user?.address?.city}
                                 className="mt-1 p-2 w-full border-none rounded-md bg-gray-200"
                                 placeholder="City"
                                 readOnly
@@ -91,7 +91,7 @@ const ProfilePage = () => {
                             <label className="text-sm text-gray-500">State</label>
                             <input
                                 type="text"
-                                value={user?.address?.state || ''}
+                                value={user?.address?.state}
                                 className="mt-1 p-2 w-full border-none rounded-md bg-gray-200"
                                 placeholder="State"
                                 readOnly
@@ -101,7 +101,7 @@ const ProfilePage = () => {
                             <label className="text-sm text-gray-500">Country</label>
                             <input
                                 type="text"
-                                value={user?.address?.country || ''}
+                                value={user?.address?.country}
                                 className="mt-1 p-2 w-full border-none rounded-md bg-gray-200"
                                 placeholder="Country"
                                 readOnly
@@ -111,7 +111,7 @@ const ProfilePage = () => {
                             <label className="text-sm text-gray-500">Pincode</label>
                             <input
                                 type="text"
-                                value={user?.address?.pincode || ''}
+                                value={user?.address?.pincode}
                                 className="mt-1 p-2 w-full border-none rounded-md bg-gray-200"
                                 placeholder="Pincode"
                                 readOnly

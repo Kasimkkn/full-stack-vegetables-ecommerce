@@ -11,6 +11,6 @@
 14.✅ out stock and disabled button on the productscard with the stock === 0
 15. ✅ add the delviery detials in the user table
 16.✅ $ change to ruppess
-17. check and add all the validation for the input feilds
+17. ✅check and add all the validation for the input feilds
 18. add pagination to the veggies page
 19. ✅add option and button on the profile page like logout and my order , my wishlits
