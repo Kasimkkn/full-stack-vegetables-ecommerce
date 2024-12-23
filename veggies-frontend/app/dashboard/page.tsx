@@ -210,7 +210,7 @@ const AdminDashboard = () => {
                     <p>Loading products...</p>
                 ) : (
                     <ProductTable
-                        products={products}
+                        products={products.length > 5 ? products.splice(0, 5) : products}
                         onEdit={handleUpdateProduct}
                         onDelete={handleDeleteProduct}
                         onAdd={handleAddProduct}
@@ -220,7 +220,7 @@ const AdminDashboard = () => {
                     <p>Loading users...</p>
                 ) : (
                     <UserTable
-                        users={users}
+                        users={users.length > 5 ? users.splice(0, 5) : users}
                         onEdit={handleUpdateUser}
                         onDelete={handleDeleteUser}
                     />
@@ -229,7 +229,7 @@ const AdminDashboard = () => {
                     <p>Loading orders...</p>
                 ) : (
                     <OrdersTable
-                        orders={orders}
+                        orders={orders.length > 5 ? orders.splice(0, 5) : orders}
                         onUpdateStatus={handleUpdateOrderStatus}
                         onDelete={handleDeleteOrder}
                     />

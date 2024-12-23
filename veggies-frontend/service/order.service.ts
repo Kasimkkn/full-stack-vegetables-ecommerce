@@ -39,5 +39,5 @@ export const processOrder = async (id: string, status: string, adminId: string) 
 
 // Delete an order (admin only)
 export const deleteOrder = async (id: string, adminId: string) => {
-    return axios.delete(`${BASE_URL}/${id}`, { params: { id: adminId } });
+    return axios.delete(`${BASE_URL}/order/${id}`, { params: { id: adminId } });
 };

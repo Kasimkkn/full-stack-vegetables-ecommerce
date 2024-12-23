@@ -69,7 +69,7 @@ const OrdersTable = ({ orders, onView, onDelete, onUpdateStatus }: OrdersTablePr
                                 )}
                                 <button
                                     onClick={() => onDelete(order._id)}
-                                    className="bg-red-500 text-white px-2 py-1 rounded"
+                                    className="bg-black text-white px-2 py-1 rounded"
                                 >
                                     Delete
                                 </button>

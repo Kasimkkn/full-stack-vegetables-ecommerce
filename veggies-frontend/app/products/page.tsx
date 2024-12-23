@@ -130,6 +130,7 @@ const ProductsList = () => {
                                             title={product.name}
                                             productId={product._id}
                                             stock={product.stock}
+                                            isWishlist={product.isWishlisted}
                                         />
                                     ))}
                                 </div>
